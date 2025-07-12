@@ -1,0 +1,14 @@
+local ARROW_TYPE_ID = 0x0F3F -- Arrow ID
+local SCAN_RANGE = 2
+
+while true do
+    local arrows = FindItem(ARROW_TYPE_ID, Ground(), SCAN_RANGE)
+    if #arrows > 0 then
+        for i=1,#arrows do
+            UseObject(arrows[i])
+            Pause(500)
+        end
+    else
+        Pause(1000) -- Wait before scanning again
+    end
+end
