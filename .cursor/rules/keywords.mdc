@@ -1,6 +1,5 @@
 ---
-description: Description: The and keyword links statements together and if all statements are true the condition is met.
-alwaysApply: false
+alwaysApply: true
 ---
 Keywords
 Keywords Overview¶

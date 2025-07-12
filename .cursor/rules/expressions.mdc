@@ -1,6 +1,5 @@
 ---
-description: expressions
-alwaysApply: false
+alwaysApply: true
 ---
 Expressions
 Statements & Loops¶

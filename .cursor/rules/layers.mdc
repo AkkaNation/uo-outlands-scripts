@@ -1,6 +1,5 @@
 ---
-description: If the command you're using requires a layername (such as dropitem) can use any of the following keywords (case insensitive)
-alwaysApply: false
+alwaysApply: true
 ---
 Layers Overview¶
 If the command you're using requires a layername (such as dropitem) can use any of the following keywords (case insensitive):

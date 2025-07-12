@@ -1,14 +1,36 @@
-local ARROW_TYPE_ID = 0x0F3F -- Arrow ID
-local SCAN_RANGE = 2
+// == Arrow Looter Script ==
+// Looks for arrows on the ground around you and moves them into a designated container.
 
-while true do
-    local arrows = FindItem(ARROW_TYPE_ID, Ground(), SCAN_RANGE)
-    if #arrows > 0 then
-        for i=1,#arrows do
-            UseObject(arrows[i])
-            Pause(500)
-        end
-    else
-        Pause(1000) -- Wait before scanning again
-    end
-end
+// On the first run, this script will prompt you to target a container (like your backpack)
+// where the arrows will be placed. Your choice is saved for future use.
+if not varexist 'loot_container'
+    overhead 'Please target your loot container.' 33
+    setvar 'loot_container'
+endif
+
+// This script uses the 'loop' command to run continuously.
+// At the start of each pass, we clear the ignore list.
+clearignore
+
+// The 'while findtype' loop will find one arrow at a time. After processing,
+// the arrow is ignored, and the loop continues until no more arrows are found.
+// The 'true' parameter limits the search to items within 2 tiles of you.
+// NOTE: This may find arrows in your backpack as well if they are not in a container.
+while findtype 0x0F3F 'true' as 'found_arrow'
+    // Lift the found arrow. A small pause helps prevent server-side issues.
+    lift 'found_arrow'
+    wait 600
+
+    // Drop the arrow into your designated loot container.
+    drop 'found_arrow' 'loot_container'
+    wait 600
+
+    // Ignore the arrow we just moved so we can find the next one.
+    ignore 'found_arrow'
+endwhile
+
+// After checking for all arrows, wait for a moment before starting over.
+wait 1000
+
+// The 'loop' command restarts the script from the beginning.
+loop
