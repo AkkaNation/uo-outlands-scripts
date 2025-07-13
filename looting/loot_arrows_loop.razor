@@ -1,0 +1,24 @@
+// This script finds arrows on the ground around your character,
+// lifts them, and drops them into your backpack.
+// It will continue until no more arrows are found nearby.
+
+clearignore
+
+// Find and ignore any arrows that are already in the backpack.
+while findtype 'arrow' 'backpack' as 'existing_arrows'
+    ignore 'existing_arrows'
+endwhile
+
+wait 500
+
+while findtype 'arrow' true as 'item_to_loot'
+    // Lift a large amount to ensure the whole stack is picked up.
+    // Use a short timeout for lift since findtype already checked range.
+    lift 'item_to_loot' 60000 1000
+    wait 300
+    drop 'self' 'Backpack'
+    ignore 'item_to_loot'
+    wait 300
+endwhile
+
+overhead 'Finished looting arrows.'
